@@ -116,7 +116,7 @@ export function Home() {
             {slides.map((slide, i) => (
               <div
                 key={`${slide.src}-${i}`}
-                className="relative h-full"
+                className="relative h-full shrink-0"
                 style={{ width: `${100 / slides.length}%` }}
               >
                 <img
