@@ -17,8 +17,8 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig(({ command }) => ({
-  // On GitHub Pages the site is served from /morizo-co-ltd/. Locally (dev) keep root.
-  base: command === 'build' ? '/morizo-co-ltd/' : '/',
+  // On GitHub Pages the site is served from /morizo-website/. Locally (dev) keep root.
+  base: command === 'build' ? '/morizo-website/' : '/',
   plugins: [
     figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
