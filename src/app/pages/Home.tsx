@@ -62,6 +62,46 @@ const brandSites = [
   },
 ];
 
+type Slide = { src: string; alt: string };
+
+// Shared sliding image track. Driven by external current/animate state so
+// multiple instances (hero + store) stay perfectly in sync.
+function SlideTrack({
+  slides,
+  current,
+  animate,
+  onTransitionEnd,
+}: {
+  slides: Slide[];
+  current: number;
+  animate: boolean;
+  onTransitionEnd?: () => void;
+}) {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <div
+        className="flex h-full"
+        onTransitionEnd={onTransitionEnd}
+        style={{
+          width: `${slides.length * 100}%`,
+          transform: `translateX(-${current * (100 / slides.length)}%)`,
+          transition: animate ? 'transform 1200ms ease-in-out' : 'none',
+        }}
+      >
+        {slides.map((slide, i) => (
+          <div
+            key={`${slide.src}-${i}`}
+            className="relative h-full shrink-0"
+            style={{ width: `${100 / slides.length}%` }}
+          >
+            <img src={slide.src} alt={slide.alt} className="w-full h-full object-cover" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function Home() {
   const total = heroSlides.length;
   // Clone the first slide at the end so we can keep moving forward past the
@@ -103,34 +143,15 @@ export function Home() {
       {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden">
         {/* Sliding image track */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div
-            className="flex h-full"
-            onTransitionEnd={handleTransitionEnd}
-            style={{
-              width: `${slides.length * 100}%`,
-              transform: `translateX(-${current * (100 / slides.length)}%)`,
-              transition: animate ? 'transform 1200ms ease-in-out' : 'none',
-            }}
-          >
-            {slides.map((slide, i) => (
-              <div
-                key={`${slide.src}-${i}`}
-                className="relative h-full shrink-0"
-                style={{ width: `${100 / slides.length}%` }}
-              >
-                <img
-                  src={slide.src}
-                  alt={slide.alt}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-          {/* Unifying overlay keeps white text readable across every slide */}
-          <div className="absolute inset-0 bg-black/40"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
-        </div>
+        <SlideTrack
+          slides={slides}
+          current={current}
+          animate={animate}
+          onTransitionEnd={handleTransitionEnd}
+        />
+        {/* Unifying overlay keeps white text readable across every slide */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
 
         {/* Slide indicators */}
         <div className="absolute bottom-10 left-0 right-0 z-20 flex justify-center gap-3">
@@ -401,11 +422,8 @@ export function Home() {
 
       {/* EC / Online Store — banner CTA. Replace href + copy with real shop. */}
       <section id="store" className="relative py-32 px-6 overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
-          alt="オンラインストア"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        {/* Same slider as the hero, sharing its state — same image, same moment. */}
+        <SlideTrack slides={slides} current={current} animate={animate} />
         <div className="absolute inset-0 bg-black/60"></div>
         <Reveal className="relative z-10 max-w-3xl mx-auto text-center text-white space-y-8">
           <div className="space-y-4">
