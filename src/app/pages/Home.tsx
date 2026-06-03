@@ -413,21 +413,13 @@ export function Home() {
             <h2 className="text-4xl md:text-5xl tracking-tight font-light">オンラインストア</h2>
           </div>
           <p className="text-lg md:text-xl text-white/80 font-light leading-relaxed max-w-2xl mx-auto">
-            森蔵が手がける逸品の数々を、ご自宅でも。厳選した商品を、オンラインストアにてお届けします。
+            森蔵が手がける逸品の数々を、ご自宅でも。オンラインストアを準備中です。どうぞご期待ください。
           </p>
           <div className="pt-2">
-            <motion.a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 22 }}
-              className="group inline-flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full hover:bg-gray-100 transition-colors text-lg tracking-wide"
-            >
-              ショップへ
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.a>
+            <span className="inline-flex items-center gap-3 border border-white/40 text-white/90 px-10 py-5 rounded-full text-lg tracking-wide">
+              <span className="h-2 w-2 rounded-full bg-white/70 animate-pulse"></span>
+              準備中 — Coming Soon
+            </span>
           </div>
         </Reveal>
       </section>
