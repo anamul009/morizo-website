@@ -34,6 +34,34 @@ const heroSlides = [
   },
 ];
 
+// Sister brand websites operated under 株式会社 森蔵.
+const brandSites = [
+  {
+    id: 'lobmeyr',
+    eng: "Member's Salon · Takamatsu",
+    name: 'LOBMEYR',
+    tagline: '洗練を極めた、高松・香川の会員制サロン。',
+    href: 'https://lobmeyr.jp/',
+    src: 'https://images.unsplash.com/photo-1595871151608-bc7abd1caca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+  },
+  {
+    id: 'yata',
+    eng: 'Members Club · Okayama',
+    name: 'CLUB 八咫',
+    tagline: '上質な酒と美食を、岡山の隠れ家で。',
+    href: 'https://clubyata.jp/',
+    src: 'https://images.unsplash.com/photo-1764709124945-56ba2ae2c496?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+  },
+  {
+    id: 'harima',
+    eng: 'Live Music Club · Takamatsu',
+    name: 'CLUB 播磨',
+    tagline: 'ライブ音楽とともに過ごす、極上のひととき。',
+    href: 'https://www.morikura.net/club/',
+    src: 'https://images.unsplash.com/photo-1553644446-9f8f2762ea42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+  },
+];
+
 export function Home() {
   const total = heroSlides.length;
   // Clone the first slide at the end so we can keep moving forward past the
@@ -148,6 +176,57 @@ export function Home() {
               </motion.p>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Brand Websites — 3 sister sites */}
+      <section id="websites" className="bg-[#0a0a0a] text-white">
+        <div className="max-w-7xl mx-auto px-6 pt-28 pb-16 text-center">
+          <Reveal className="space-y-4">
+            <div className="text-sm tracking-widest text-white/50 uppercase">Our Brands</div>
+            <h2 className="text-4xl md:text-5xl tracking-tight font-light">関連ブランドサイト</h2>
+            <p className="text-white/60 font-light max-w-2xl mx-auto pt-2 leading-relaxed">
+              株式会社 森蔵が運営する、3つの会員制ブランド。それぞれの世界へ。
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {brandSites.map((site, i) => (
+            <motion.a
+              key={site.id}
+              href={site.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block h-[60vh] md:h-[80vh] overflow-hidden"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: EASE }}
+            >
+              <img
+                src={site.src}
+                alt={site.name}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/55 transition-colors duration-500 group-hover:bg-black/35" />
+              <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-10">
+                <div className="text-xs tracking-[0.3em] uppercase text-white/70 mb-3 font-serif">
+                  {site.eng}
+                </div>
+                <h3 className="text-3xl md:text-4xl font-light tracking-tight mb-4">
+                  {site.name}
+                </h3>
+                <p className="text-white/80 font-light leading-relaxed mb-6 max-w-xs">
+                  {site.tagline}
+                </p>
+                <div className="inline-flex items-center gap-3 text-sm tracking-widest uppercase">
+                  サイトを見る
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
+                </div>
+              </div>
+            </motion.a>
+          ))}
         </div>
       </section>
 
